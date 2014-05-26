@@ -17,7 +17,7 @@ Table of Contents
 1 Usage
 ------------
 
-The lua files included are intended for (Solarus)[http://www.solarus-games.org/] quests.
+The lua files included are intended for [Solarus](http://www.solarus-games.org/) quests.
 
 At the present moment, to use the entities, you must copy the entities you would like into a folder called ```entities``` in your quest's data folder.
 
