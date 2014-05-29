@@ -17,24 +17,15 @@ Table of Contents
 1 Usage
 ------------
 
-The lua files included are intended for [Solarus](http://www.solarus-games.org/) quests.
-
-At the present moment, to use the entities, you must copy the entities you would like into a folder called ```entities``` in your quest's data folder.
-
-In the future, you may be able to just copy lib.lua, call
-
-    require("lib")
-    lib:add(path_to_scripts_folder)
-    map:create_custom_entity()  -- with required fields and name of wanted entity script file as model.
-
-That is the way that makes the most sense to me.
+The Lua files contained are most easily used as a git submodule (in a git-maintained project).
+Place the submodule where you would like to, and call it from your quest.
 
 -------------
 2 Entities
 -------------
 
 The following entities are currently implemented:
-Arrow -> builtin_arrow.lua
+Arrow -> builtin/arrow.lua
 
 -------------
 2.1 Arrow
