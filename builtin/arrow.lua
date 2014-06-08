@@ -11,7 +11,7 @@ local hero = game:get_hero()
 function arrow:on_created()
   -- self.max_dist = 10
   self.max_speed = 0.1
-  self.angle = 0
+  --self.angle = 0
   self.dx = 1
   self.dy = 0
   self.start = {}
@@ -29,7 +29,7 @@ function arrow:on_created()
   function m:on_obstacle_reached()
     sprite:set_animation('reached_obstacle')
     function sprite:on_animation_finished()
-      self:remove()
+      arrow:remove()
     end
   end
   m:start(self)
@@ -56,6 +56,7 @@ function arrow:get_max_dist()
   return self.max_dist
 end
 
+--[[
 -- Angle
 function arrow:set_angle(angle)
   self.angle = angle
@@ -63,14 +64,4 @@ end
 
 function arrow:get_angle()
   return self.angle
-end
-
--- speed
-function arrow:set_speed(speed)
-  self.speed = speed
-  self.dx = self.speed * math.cos(self.angle)
-end
-
-function arrow:get_speed()
-  return self.speed
-end
+end]]
