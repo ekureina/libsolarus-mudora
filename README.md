@@ -1,7 +1,8 @@
-libsolarus-zelda
+libsolarus-Mudora
 ------------
 
-A Solarus Lua Library for common zelda-based game entities and other things.
+A Solarus Lua Library for common Zelda-based game entities and other things.
+It is the bridge between the language of the engine and the language of game design.
 
 -----------------
 Table of Contents
