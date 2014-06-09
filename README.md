@@ -1,7 +1,7 @@
-solarus-lstd
+libsolarus-zelda
 ------------
 
-A Solarus Lua Library for common game entities and other things.
+A Solarus Lua Library for common zelda-based game entities and other things.
 
 -----------------
 Table of Contents
