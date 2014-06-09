@@ -29,17 +29,25 @@ function arrow:on_created()
   local sprite = self:create_sprite('entities/arrow')
   sprite:set_direction(direction)
 
+  self:set_can_traverse('teletransporter',true)
+  self:set_can_traverse('stream',true)
+  self:set_can_traverse('jumper',true)
+  self:set_can_traverse('crystal_block',true)
+  self:set_can_traverse('npc',true)
+
   local m = sol.movement.create('straight')
   m:set_speed(192)
   m:set_angle(direction*math.pi/2)
   m:set_smooth(false)
   function m:on_obstacle_reached()
     sprite:set_animation('reached_obstacle')
-    function sprite:on_animation_finished()
+    sol.audio.play_sound('arrow_hit')
+    sol.timer.start(1500, function()
       arrow:remove()
-    end
+    end)
   end
   m:start(self)
+  sol.audio.play_sound('bow')
 
   if (direction % 2 == 0) then
     -- Horizontal.
