@@ -12,6 +12,7 @@ function arrow:on_created()
   -- self.max_dist = 10
   self.max_speed = 0.1
   --self.angle = 0
+  self.crystal_state_changed = false
   self.dx = 1
   self.dy = 0
   self.start = {}
@@ -51,6 +52,19 @@ function arrow:on_created()
     self:set_size(8, 16);
     self:set_origin(4, 8);
   end
+
+  self:add_collision_test("sprite",function(me,collision_entity)
+    if collision_entity:get_type() == 'crystal' and not self.crystal_state_changed then
+      game:get_map():change_crystal_state()
+      self.crystal_state_changed = true
+    else
+      print(collision_entity:get_type())
+    end
+  end)
+
+  self:add_collision_test("overlapping", function(me, collision_entity)
+    print(collision_entity:get_type());
+  end)
 end
 
 -- Getters and Setters
