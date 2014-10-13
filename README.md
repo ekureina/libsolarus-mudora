@@ -12,6 +12,7 @@ Table of Contents
 2. Entities
 
   2.1 Arrow
+  2.2 Slippery Ice
 
 
 ------------
@@ -27,6 +28,7 @@ Place the submodule where you would like to, and call it from your quest.
 
 The following entities are currently implemented:
 Arrow -> builtin/arrow.lua
+Slippery Ice -> other/slip_ice.lua
 
 -------------
 2.1 Arrow
@@ -34,3 +36,10 @@ Arrow -> builtin/arrow.lua
 
 The arrow has the properties max_dist, speed, and angle.  They can be set or returned using setter and getter functions.
 The only event defined is on_update(), which moves the arrow.
+
+----------------
+2.2 Slippery Ice
+----------------
+
+Slippery Ice slides the hero or a block if either walks into it.
+It uses collision testing and hero states to acomplish this.
