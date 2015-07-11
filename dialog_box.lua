@@ -1,3 +1,16 @@
+--[[
+Special characters:
+$1, $2 and $3: slow, medium and fast
+$0: pause
+$v: variable
+space: don't add the delay
+110xxxx: multibyte character
+${surface_name}: change to other surface. This allows to use several colors at the same time. 
+                 The original one is "${default}".
+$[color] or $[(r,g,b)]: name of a color (red, blue,...) predefined in dialog_box:set_color(color),
+                        or RGB coordinates of some color.
+--]]  
+
 local game = ...
 
 local dialog_box = {
@@ -18,6 +31,7 @@ local dialog_box = {
   line_it = nil,               -- Iterator over of all lines of the dialog.
   lines = {},                  -- Array of the text of the 3 visible lines.
   line_surfaces = {},          -- Array of the 3 text surfaces.
+  text_properties = {},        -- Array of properties to create the text surfaces.
   line_index = nil,            -- Line currently being shown.
   char_index = nil,            -- Next character to show in the current line.
   char_delay = nil,            -- Delay between two characters in milliseconds.
@@ -52,15 +66,22 @@ function game:initialize_dialog_box()
   game.dialog_box = dialog_box
 
   -- Initialize dialog box data.
-  dialog_box.line_surfaces.default = {}; dialog_box.current_line_surface = dialog_box.line_surfaces.default
+  dialog_box.line_surfaces.default = {}
+  dialog_box.current_line_surface = dialog_box.line_surfaces.default
+  -- Text properties used to initialize surfaces.
+  local font, font_size = sol.language.get_dialog_font()
+  dialog_box.text_properties = { 
+    horizontal_alignment = "left",
+    vertical_alignment = "top",
+    rendering_mode = "antialiasing",
+    font = font,
+    font_size = font_size,
+  }
   for i = 1, nb_visible_lines do
     dialog_box.lines[i] = ""
-    dialog_box.line_surfaces.default[i] = sol.text_surface.create{
-      horizontal_alignment = "left",
-      vertical_alignment = "top",
-      font = "fixed8",
-    }
+    dialog_box.line_surfaces.default[i] = sol.text_surface.create(dialog_box.text_properties)
   end
+  
   dialog_box.dialog_surface = sol.surface.create(sol.video.get_quest_size())
   dialog_box.box_img = sol.surface.create("hud/dialog_box.png")
   dialog_box.icons_img = sol.surface.create("hud/dialog_icons.png")
@@ -99,6 +120,8 @@ function game:on_dialog_finished(dialog)
     if k ~= "default" then dialog_box.line_surfaces[k] = nil end
   end
   dialog_box.current_line_surface = dialog_box.line_surfaces.default
+  -- Call a custom function (it can be created on the game manager).
+  -- if game.on_custom_dialog_finished then game:on_custom_dialog_finished() end 
 end
 
 -- Sets the style of the dialog box for subsequent dialogs.
@@ -411,7 +434,7 @@ function dialog_box:add_character()
 	  if not self.line_surfaces[name] then
 	    self.line_surfaces[name] = {}
 	    for i = 1, nb_visible_lines do
-		  self.line_surfaces[name][i] = sol.text_surface.create{horizontal_alignment = "left", vertical_alignment = "top", font = "fixed8"}
+		  self.line_surfaces[name][i] = sol.text_surface.create(dialog_box.text_properties)
         end
 	  end
 	  -- Fill with spaces in the current line of the new surface until the current position. 
