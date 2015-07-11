@@ -1,3 +1,16 @@
+--[[
+Special characters:
+$1, $2 and $3: slow, medium and fast
+$0: pause
+$v: variable
+space: don't add the delay
+110xxxx: multibyte character
+${surface_name}: change to other surface. This allows to use several colors at the same time. 
+                 The original one is "${default}".
+$[color] or $[(r,g,b)]: name of a color (red, blue,...) predefined in dialog_box:set_color(color),
+                        or RGB coordinates of some color.
+--]]  
+
 local game = ...
 
 local dialog_box = {
